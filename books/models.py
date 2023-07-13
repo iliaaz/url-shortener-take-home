@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework.pagination import PageNumberPagination
 
 
 class Category(models.Model):
@@ -38,3 +39,9 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BookPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
