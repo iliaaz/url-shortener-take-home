@@ -19,5 +19,6 @@ class Url(models.Model):
         token = secrets.token_urlsafe(16)[:10]
         return token
 
-    def get_full_short_url(self):
-        return f"http://localhost:8000/{self.hashed_url}"
+    def get_full_short_url(self, request):
+        domain = request.get_host()
+        return f"http://{domain}/{self.hashed_url}/"

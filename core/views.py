@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 
 from core.models import Url
@@ -18,7 +18,17 @@ class HomeView(View):
 
         url = form.cleaned_data.get("url")
         obj = Url.objects.create(url=url)
+        short_url = obj.get_full_short_url(request)
 
         return render(
-            request, self.template_name, {"short_url": obj.get_full_short_url()}
+            request, self.template_name, {"short_url": short_url}
         )
+
+
+class RedirectView(View):
+    def get(self, request, hashed_url):
+        try:
+            url = Url.objects.get(hashed_url=hashed_url)
+            return redirect(url.url)
+        except Url.DoesNotExist:
+            return redirect("home_page")
