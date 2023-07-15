@@ -8,6 +8,9 @@ django = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
 djangorestframework = "*"
+dj-database-url = "*"
+whitenoise = {extras = ["brotli"], version = "*"}
+gunicorn = "*"
 
 [dev-packages]
 flake8 = "*"

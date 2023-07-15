@@ -1,0 +1,22 @@
+databases:
+  - name: supervisas_demo
+    databaseName: visadb
+    user: iaz
+
+services:
+  - type: web
+    name: supervisas_demo
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn supervisas_demo.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: DATABASE_URL
+        fromDatabase:
+          name: supervisas_demo
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
