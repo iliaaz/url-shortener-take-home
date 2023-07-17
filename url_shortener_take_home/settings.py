@@ -21,6 +21,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-7$552q7he1vl9sa=_fs4a^cs65
 ALLOWED_HOSTS = []
 
 # render
+DEBUG_PROPAGATE_EXCEPTIONS = True
 DEBUG = 'RENDER' not in os.environ
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:

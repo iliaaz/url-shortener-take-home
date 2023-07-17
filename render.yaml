@@ -1,20 +1,24 @@
 databases:
-  - name: supervisas_demo
+  - name: visadb
+    plan: free
     databaseName: visadb
     user: iaz
 
 services:
   - type: web
-    name: supervisas_demo
+    plan: free
+    name: url_shortener_take_home
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn supervisas_demo.wsgi:application"
+    startCommand: "pipenv run gunicorn url_shortener_take_home.wsgi:application"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11
+        value: 3.11.2
+      - key: PIPENV_YES
+        value: true
       - key: DATABASE_URL
         fromDatabase:
-          name: supervisas_demo
+          name: visadb
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
