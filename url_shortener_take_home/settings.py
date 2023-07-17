@@ -16,13 +16,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-7$552q7he1vl9sa=_fs4a^cs653wm&%w$ha7t=@8ep=p+7_7s=")
-# DEBUG = bool(os.getenv("DEBUG", True))
+DEBUG = 'RENDER' not in os.environ
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
 ALLOWED_HOSTS = []
 
-# render
-DEBUG_PROPAGATE_EXCEPTIONS = True
-DEBUG = 'RENDER' not in os.environ
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -47,7 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # render
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -80,21 +78,8 @@ WSGI_APPLICATION = "url_shortener_take_home.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.getenv("DB_NAME", "url_shortener_take_home"),
-#         "USER": os.getenv("DB_USER", "user"),
-#         "PASSWORD": os.getenv("DB_PASSWORD", "password"),
-#         "HOST": os.getenv("DB_HOST", "localhost"),
-#         "PORT": os.getenv("DB_PORT", 5432),
-#     }
-# }
-
-# render
 DATABASES = {
     'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
         default='postgresql://iaz:iazpass@localhost:5432/visadb',
         conn_max_age=600
     )
@@ -134,10 +119,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-# STATIC_URL = "static/"
-STATIC_URL = '/static/'  # render
-
+STATIC_URL = '/static/'
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 
 # Following settings only make sense on production and may break development environments.
