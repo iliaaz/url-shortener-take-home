@@ -1,3 +1,27 @@
+## Live Demo
+A live demo is available at: https://url-shortener-take-home.onrender.com
+
+`/api/books/` is pre-populated for testing
+
+## App - Core (URL Shortener)
+The `core` app is a URL shortener tool that creates short URLs and redirects from them to the specified target URL. It provides the following features:
+
+- Generate random short URLS that are 10 characters long
+- Allows users to specify an unused custom short URL (max 10 chars)
+- Allows the originator of a custom short URL to modify the target of the short URL using a returned random PIN
+
+## API - Books
+The `books` app provides an API for listing books. It includes the following endpoints:
+
+- `/api/books/` - GET: Retrieve a list of books.
+
+In order to improve query times, results have been paginated and the following parameters have been enabled:
+- `?page=X`: returns the requested page of results 
+- `?page_size=X`: limits the number of entries per page of results (default: 10, max: 100)
+- `?fields=[]`: limits the returned book data to the fields specified by a comma-seperated list
+- `?exclude=[]`: excludes fields specified by a comma-seperated list from the returned book data; cannot be used in conjunction with `?fields`
+
+eg. `/api/books/?page=3&page_size=5&fields=id,title` will return the third page of 5 results containing only the books' ids and titles
 
 ## Installation and Setup
 
@@ -36,18 +60,6 @@ python manage.py migrate
 python manage.py runserver
 ```
 8. Access the project in your web browser at `http://localhost:8000/`.
-
-## App - Core (URL Shortener)
-The `core` app is a URL shortener tool that allows you to create short URLs. It provides the following features:
-
-- Shorten long URLs to a shorter, more manageable format.
-
-
-## API - Books
-The `books` app provides an API for listing books. It includes the following endpoints:
-
-- `/api/books/` - GET: Retrieve a list of books.
-
 
 ### Management Commands
 
