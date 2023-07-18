@@ -25,6 +25,19 @@ eg. `/api/books/?page=3&page_size=5&fields=id,title` will return the third page 
 
 ## Installation and Setup
 
+### Initialize development environment using Nix
+`nix-shell -p python311 pipenv postgresql_15 git`
+
+### Postgres Setup
+
+Initialize Postgres: `initdb -D .data`
+
+Start/Stop the Postgres server: `pg_ctl -D .data -l logfile start` / `pg_ctl -D .data stop`
+
+Verify the server status: `pg_ctl -D .data status`
+
+### Project
+
 To set up the project locally, follow these steps:
 
 1. Clone the repository: 
